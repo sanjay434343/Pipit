@@ -1,0 +1,31 @@
+{
+  "service_name": "LiteRT AI Embedding Service",
+  "version": "1.0.0",
+  "engine": "LiteRtLmEngine",
+  "backend": {
+    "default": "GPU",
+    "fallback": "CPU",
+    "supported_backends": ["GPU", "NPU", "CPU"]
+  },
+  "concurrency": {
+    "default_threads": 4,
+    "available_thread_presets": [1, 2, 4, 8, 12, 16],
+    "parallel_batch_processing": true,
+    "step_sequence": [1, 4, 8, 12, 16]
+  },
+  "tokens": {
+    "max_sequence_length": 512,
+    "max_output_tokens": 128,
+    "context_window_tokens": 2048
+  },
+  "vision": {
+    "support_image": true,
+    "max_image_dimension_px": 384,
+    "native_decoding_max_bytes": 2500000,
+    "supported_image_types": [".jpg", ".jpeg", ".png", ".webp", ".heic"]
+  },
+  "tasks": {
+    "query_task": "retrievalQuery",
+    "document_task": "retrievalDocument"
+  }
+}
