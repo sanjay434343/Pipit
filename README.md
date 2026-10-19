@@ -129,16 +129,16 @@ Pipit's pipeline is strictly local-first and air-gapped by design:
 
 ```mermaid
 flowchart TD
-    subgraph Device_Storage["📱 On-Device Media & Storage"]
-        P[📸 Camera & Gallery]
-        D[📄 PDFs & Documents]
-        M[💬 SMS & Contacts]
+    subgraph Storage["📱 On-Device Media and Storage"]
+        P["📸 Camera and Gallery"]
+        D["📄 PDFs and Documents"]
+        M["💬 SMS and Contacts"]
     end
 
-    subgraph Background_Indexing["⚡ Background Indexer"]
-        LW[Live Storage Watcher]
-        OCR[ML Kit OCR Extractor]
-        IMG_PREP[Smart Downscaler 384px]
+    subgraph Indexing["⚡ Background Indexer"]
+        LW["Live Storage Watcher"]
+        OCR["ML Kit OCR Extractor"]
+        IMG_PREP["Smart Downscaler 384px"]
     end
 
     subgraph AI_Core["🧠 Local AI Core (Air-Gapped)"]
@@ -147,20 +147,26 @@ flowchart TD
         VEC["512-dim Normalized Vector Space"]
     end
 
-    subgraph Local_Storage["🗄️ SQLite Vector & FTS Database"]
+    subgraph Local_Storage["🗄️ SQLite Vector and FTS Database"]
         DB[("pipit_search.db")]
     end
 
     subgraph UI["🎨 Pipit User Interface"]
         SEARCH["Floating Glowing Search Island"]
-        RESULTS["Instant Masonry Grid (<30ms)"]
+        RESULTS["Instant Masonry Grid (Sub-30ms)"]
     end
 
-    Device_Storage --> LW
-    LW --> OCR & IMG_PREP
+    P --> LW
+    D --> LW
+    M --> LW
+
+    LW --> OCR
+    LW --> IMG_PREP
+
     OCR --> DB
     IMG_PREP --> MODEL
-    MODEL <--> GPU
+
+    GPU -.->|"Acceleration"| MODEL
     MODEL --> VEC
     VEC --> DB
 
@@ -198,7 +204,7 @@ flowchart TD
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/your-username/pipit.git
+git clone https://github.com/sanjay434343/Pipit.git
 cd pipit
 flutter pub get
 ```
@@ -247,7 +253,7 @@ We believe your personal photos, files, and messages are nobody else's business:
 
 We welcome contributions from developers, designers, and AI enthusiasts!
 
-1. Fork the Project (`https://github.com/your-username/pipit/fork`)
+1. Fork the Project (`https://github.com/sanjay434343/Pipit/fork`)
 2. Create your Feature Branch (`git checkout -b feature/EpicFeature`)
 3. Commit your Changes (`git commit -m 'Add EpicFeature'`)
 4. Push to the Branch (`git push origin feature/EpicFeature`)
